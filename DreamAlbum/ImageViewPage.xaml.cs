@@ -12,6 +12,8 @@ using Microsoft.Xna.Framework.Media;
 using System.Windows.Media.Imaging;
 using System.Text;
 using System.Diagnostics;
+using DreamAlbumModels.Models;
+using System.IO;
 
 namespace DreamAlbum
 {
@@ -34,18 +36,16 @@ namespace DreamAlbum
                 byte[] buffer = Convert.FromBase64String(imageName);
                 string name = Encoding.UTF8.GetString(buffer, 0, buffer.Length);
 
-                MediaLibrary library = new MediaLibrary();
-                var image = (from img in library.Pictures
-                             where img.Name.Equals(name)
-                             select img).First();
+                using (Stream stream = Utility.GetMediaLibraryImageStream(name))
+                {
+                    BitmapImage bi = new BitmapImage();
+                    bi.SetSource(stream);
 
-                BitmapImage bi = new BitmapImage();
-                bi.SetSource(image.GetImage());
+                    imageHeight = image.Height;
+                    imageWidth = image.Width;
 
-                imageHeight = image.Height;
-                imageWidth = image.Width;
-
-                LayoutRoot.DataContext = bi;
+                    LayoutRoot.DataContext = bi;
+                }
             }
         }
 

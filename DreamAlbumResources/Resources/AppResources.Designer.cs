@@ -70,6 +70,15 @@ namespace DreamAlbumResources.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 再次点击退出程序.
+        /// </summary>
+        public static string MESSAGE_QUIT {
+            get {
+                return ResourceManager.GetString("MESSAGE_QUIT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to LeftToRight.
         /// </summary>
         public static string ResourceFlowDirection {

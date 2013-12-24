@@ -19,6 +19,10 @@ namespace DreamAlbumViewModels.ViewModels
             Observable.Start(LoadPhoto);
         }
 
+        public event EventHandler LoadPhotoCompleted;
+
+        public event EventHandler LoadingPhoto;
+
         protected void LoadPhoto()
         {
             MediaLibrary mediaLib = new MediaLibrary();
@@ -48,6 +52,20 @@ namespace DreamAlbumViewModels.ViewModels
                 };
 
                 Pictures.Add(info);
+
+                var handler = LoadingPhoto;
+                if (null != handler)
+                {
+                    handler(this, new EventArgs());
+                }
+            },
+            () =>
+            {
+                var handler = LoadPhotoCompleted;
+                if (null != handler)
+                {
+                    handler(this, new EventArgs());
+                }
             });
         }
 

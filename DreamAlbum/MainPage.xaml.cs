@@ -10,6 +10,7 @@ using Microsoft.Phone.Reactive;
 using DreamAlbumModels.Models;
 using System.Text;
 using DreamAlbumResources.Resources;
+using System.Diagnostics;
 
 namespace DreamAlbum
 {
@@ -39,7 +40,7 @@ namespace DreamAlbum
             btnChangeView.Text = AppResources.AppBar_ChangeView;
             btnChangeView.Click += (s, args) =>
             {
-
+                NavigationService.Navigate(new Uri("/SlidePage.xaml", UriKind.Relative));
             };
 
             ApplicationBar.Buttons.Add(btnChangeView);
@@ -100,6 +101,13 @@ namespace DreamAlbum
             LayoutRoot.DataContext = null;
 
             base.OnRemovedFromJournal(e);
+        }
+
+        protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
+        {                        
+            base.OnBackKeyPress(e);
+            Debug.WriteLine("Quit");
+
         }
     }
 }
