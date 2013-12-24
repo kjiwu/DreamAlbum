@@ -1,0 +1,51 @@
+﻿<phone:PhoneApplicationPage x:Class="DreamAlbum.MainPage"
+                            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                            xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+                            xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+                            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                            mc:Ignorable="d"
+                            FontFamily="{StaticResource PhoneFontFamilyNormal}"
+                            FontSize="{StaticResource PhoneFontSizeNormal}"
+                            Foreground="{StaticResource PhoneForegroundBrush}"
+                            SupportedOrientations="PortraitOrLandscape"
+                            Orientation="Portrait"
+                            shell:SystemTray.IsVisible="False">
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot"
+          Background="Transparent">
+        <phone:LongListSelector ItemsSource="{Binding Pictures}"
+                                LayoutMode="Grid"
+                                GridCellSize="130, 130"
+                                IsGroupingEnabled="False"
+                                x:Name="ImageList"
+                                SelectionChanged="ImageList_SelectionChanged">
+            <phone:LongListSelector.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="6">
+                        <Grid.Triggers>
+                            <EventTrigger RoutedEvent="Grid.Loaded">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="UIElement.Opacity"
+                                                                       Storyboard.TargetName="image">
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0"
+                                                                  Value="0" />
+                                            <EasingDoubleKeyFrame KeyTime="0:0:1"
+                                                                  Value="1" />
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Grid.Triggers>
+                        <Image Source="{Binding Thumbnail}"
+                               x:Name="image" />
+                    </Grid>
+                </DataTemplate>
+            </phone:LongListSelector.ItemTemplate>
+        </phone:LongListSelector>
+    </Grid>
+    
+</phone:PhoneApplicationPage>
